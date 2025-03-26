@@ -10,10 +10,6 @@ terraform {
   }
 }
 
-variable "vsphere_user" {}
-variable "vsphere_password" {}
-variable "vsphere_server" {}
-
 provider "vsphere" {
   user           = var.vsphere_user
   password       = var.vsphere_password
