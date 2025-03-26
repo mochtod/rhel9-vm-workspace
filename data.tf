@@ -1,0 +1,23 @@
+# Contents of rhel9-vm-workspace/data.tf
+
+# ------------------------------------------------------------------------------  
+# Data subnets
+# ------------------------------------------------------------------------------  
+
+# Placeholder for VMware network configurations
+data "vsphere_network" "vm_network" {
+  name          = "VM Network"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+
+locals {
+   vm_name = "rhel9-vm"
+}
+
+provider "vault" {
+  address = "https://vault-prod-centralus-core.chrazure.cloud"
+}
+
+data "vault_generic_secret" "vm_credentials" {
+  path = "secret/infra/vm/${local.vm_name}"
+}
