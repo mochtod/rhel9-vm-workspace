@@ -21,3 +21,11 @@ provider "vault" {
 data "vault_generic_secret" "vm_credentials" {
   path = "secret/infra/vm/${local.vm_name}"
 }
+
+data "external" "next_ip" {
+  program = ["python", "fetch_next_ip.py"]
+  query = {
+    range = "192.168.1.0/24"
+    token = var.netbox_token
+  }
+}
