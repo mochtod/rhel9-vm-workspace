@@ -43,22 +43,22 @@ resource "vsphere_virtual_machine" "vm" {
     eagerly_scrub    = false
     thin_provisioned = true
   }
+
+  dynamic "disk" {
+    for_each = var.additional_disks
+    content {
+      label            = "disk${disk.key + 1}"
+      size             = disk.value.size
+      eagerly_scrub    = false
+      thin_provisioned = disk.value.type == "thin"
+    }
+  }
+
   clone {
     template_uuid = var.template_uuid
   }
 
   custom_attributes = {
-    ipv4_address = var.ipv4_address
-  }
-}
-
-data "vsphere_datastore" "datastore" {
-  name          = "datastore1"
-  datacenter_id = data.vsphere_datacenter.dc.id
-}
-
-data "vsphere_network" "network" {
-  name          = "VM Network"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 

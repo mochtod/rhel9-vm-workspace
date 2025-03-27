@@ -18,3 +18,7 @@ time_zone        = "UTC"
 quantity         = 1  # Number of machines to create
 start_number     = 1  # Starting number for machine names
 end_number       = 100  # Ending number for machine names
+additional_disks = [
+  { size = 50, type = "thin" },
+  { size = 100, type = "thick" }
+]
