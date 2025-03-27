@@ -61,6 +61,23 @@ resource "vsphere_virtual_machine" "vm" {
   custom_attributes = {
     ipv4_address = var.ipv4_address
   }
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo 'First login successful!'",
+      "sudo yum update -y",
+      "sudo systemctl enable sshd"
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "centos"
+      password    = "centos"
+      host        = self.custom_attributes["ipv4_address"]
+      # Uncomment the following line if using key-based authentication
+      # private_key = file("~/.ssh/id_rsa")
+    }
+  }
 }
 
 data "vsphere_datastore" "datastore" {
