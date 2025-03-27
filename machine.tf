@@ -59,6 +59,17 @@ resource "vsphere_virtual_machine" "vm" {
   }
 
   custom_attributes = {
+    ipv4_address = var.ipv4_address
+  }
+}
+
+data "vsphere_datastore" "datastore" {
+  name          = "datastore1"
+  datacenter_id = data.vsphere_datacenter.dc.id
+}
+
+data "vsphere_network" "network" {
+  name          = "VM Network"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
