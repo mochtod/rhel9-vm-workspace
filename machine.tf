@@ -91,4 +91,16 @@ data "external" "next_ip" {
   program = ["python", "fetch_next_ip.py"]
   query = {
     range = "192.168.1.0/24"
-    token
+    token = "some_token"
+  }
+}
+
+output "vm_ips" {
+  description = "List of IP addresses for the created VMs"
+  value       = [for vm in vsphere_virtual_machine.vm : vm.custom_attributes["ipv4_address"]]
+}
+
+output "vm_ids" {
+  description = "List of IDs for the created VMs"
+  value       = [for vm in vsphere_virtual_machine.vm : vm.id]
+}

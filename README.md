@@ -54,6 +54,28 @@ This repository contains Terraform configurations to create a Red Hat Enterprise
 
 The `machine` module simplifies the creation of virtual machines. Users only need to provide basic inputs in `hostname.tf`.
 
+## Modular Structure
+The repository has been modularized for better reusability and maintainability. The new structure is as follows:
+```
+modules/
+  vm/
+  network/
+  security/
+environments/
+  dev/
+  prod/
+```
+Each module contains reusable Terraform configurations for specific components.
+
+## CI/CD Integration
+A GitHub Actions workflow has been added to validate and apply Terraform changes automatically. See `.github/workflows/terraform.yml` for details.
+
+## Remote State Management
+The `backend.tf` file has been updated to use a remote backend for state management. Ensure you configure the backend with your credentials.
+
+## Security Enhancements
+Sensitive information has been removed from the configuration files. Use a secrets manager like HashiCorp Vault to manage sensitive data securely.
+
 ## Atlantis Integration
 
 This repository is compatible with Atlantis for managing Terraform workflows.

@@ -1,13 +1,17 @@
 variable "vsphere_user" {
-  default = "default_user"
+  description = "vSphere username"
+  type        = string
 }
 
 variable "vsphere_password" {
-  default = "default_password"
+  description = "vSphere password"
+  type        = string
+  sensitive   = true
 }
 
 variable "vsphere_server" {
-  default = "default_server"
+  description = "vSphere server address"
+  type        = string
 }
 
 variable "hostname_prefix" {
