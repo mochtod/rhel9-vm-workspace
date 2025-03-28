@@ -11,7 +11,7 @@ data "vsphere_network" "vm_network" {
 }
 
 locals {
-   vm_name = "rhel9-vm"
+   vm_name = "rhel9-ssbstester"
 }
 
 provider "vault" {
